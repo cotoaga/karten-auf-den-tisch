@@ -1,0 +1,297 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design System CSS Variables — cotoaga.ai light theme ── */
+:root {
+  /* Brand */
+  --cotoaga-green: #00A86B;
+  --cotoaga-blue: #0088FF;
+  --cotoaga-cyan: #00D4FF;
+
+  /* Semantic */
+  --cotoaga-ai-success: #098A5E;
+  --cotoaga-ai-info: #2F67B2;
+  --cotoaga-ai-gold: #E9B320;
+  --cotoaga-ai-sand: #EB9929;
+
+  /* Neutral scale */
+  --cotoaga-ai-white: #FAFBFB;
+  --cotoaga-ai-smoke: #E0E0E0;
+  --cotoaga-ai-grey-light: #8A8A8A;
+  --cotoaga-ai-grey: #4A4A4A;
+  --cotoaga-ai-grey-dark: #2D2D2D;
+  --cotoaga-ai-dark-marine: #16213E;
+  --cotoaga-ai-deep-sky: #191A2E;
+  --cotoaga-ai-black: #0B0B0B;
+
+  /* Ampel — semantic game mechanic colors, not decorative */
+  --ampel-green: #00A86B;
+  --ampel-yellow: #E9B320;
+  --ampel-red: #C0392B;
+
+  /* Mapped tokens — light theme */
+  --brand-primary: var(--cotoaga-green);
+  --brand-accent: var(--cotoaga-blue);
+  --brand-hero-color: var(--cotoaga-blue);
+  --brand-surface: var(--cotoaga-ai-white);
+  --brand-border: var(--cotoaga-ai-smoke);
+  --brand-text-body: var(--cotoaga-ai-grey-dark);
+  --brand-text-secondary: var(--cotoaga-ai-grey);
+  --brand-tint-bg: rgba(0, 168, 107, 0.05);
+  --brand-hover-shadow: 0 4px 16px rgba(0, 168, 107, 0.1);
+  --brand-radius: 0;
+
+  /* Typography — use next/font variables with fallbacks */
+  --font-display: var(--font-display-loaded, 'Space Grotesk'), sans-serif;
+  --font-primary: var(--font-primary-loaded, 'Inter'), sans-serif;
+  --font-mono: var(--font-mono-loaded, 'JetBrains Mono'), monospace;
+
+  /* Spacing (8px grid) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+}
+
+/* ── Base resets ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--brand-surface);
+  color: var(--brand-text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Scroll snap — chapter beats only ── */
+.chapter-spine {
+  /* Scroll-snap on major chapter beats */
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100dvh;
+}
+
+.chapter-beat {
+  scroll-snap-align: start;
+  min-height: 100dvh;
+}
+
+/* ── Reveal on enter ── */
+.reveal-enter {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.reveal-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .chapter-spine {
+    scroll-snap-type: none;
+  }
+  .reveal-enter {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Joker peel interaction ── */
+.joker-wrap {
+  position: relative;
+  width: 248px;
+  height: 330px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.joker-layer {
+  position: absolute;
+  inset: 0;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0; /* design system: radius 0 */
+}
+
+.joker-golden {
+  background: var(--cotoaga-ai-gold);
+  color: var(--cotoaga-ai-grey-dark);
+  border: 1px solid var(--cotoaga-ai-sand);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  z-index: 1;
+}
+
+.joker-lid {
+  background: var(--cotoaga-ai-dark-marine);
+  color: var(--cotoaga-ai-white);
+  border: 1px solid var(--cotoaga-ai-gold);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 2;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+
+.joker-wrap.peeled .joker-lid {
+  transform: translate(56px, -72px) rotate(9deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.joker-wrap:not(.peeled):hover .joker-lid {
+  transform: translate(6px, -6px) rotate(-1.5deg);
+}
+
+/* ── Case deck — horizontal scroll ── */
+.case-deck-track {
+  display: flex;
+  gap: var(--space-lg);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-md);
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+.case-deck-track::-webkit-scrollbar {
+  height: 3px;
+}
+
+.case-deck-track::-webkit-scrollbar-track {
+  background: var(--brand-border);
+}
+
+.case-deck-track::-webkit-scrollbar-thumb {
+  background: var(--brand-primary);
+}
+
+.case-card {
+  flex-shrink: 0;
+  width: 220px;
+  scroll-snap-align: start;
+  border: 1px solid var(--brand-border);
+  padding: var(--space-lg);
+  background: var(--brand-surface);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.case-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* ── Acts side rail ── */
+.acts-rail {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.acts-rail-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--brand-border);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.acts-rail-dot.active {
+  background: var(--brand-primary);
+  width: 10px;
+  height: 10px;
+}
+
+.acts-rail-dot:hover {
+  background: var(--brand-accent);
+}
+
+/* Mobile: hide rail */
+@media (max-width: 768px) {
+  .acts-rail {
+    display: none;
+  }
+
+  .case-deck-track {
+    padding-left: var(--space-md);
+  }
+}
+
+/* ── 10th Man dark chapter ── */
+.tenth-man-chapter {
+  background: var(--cotoaga-ai-deep-sky);
+  color: var(--cotoaga-ai-white);
+}
+
+/* ── Utility: section kicker ── */
+.section-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Flags ── */
+.locale-switch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.locale-btn {
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: transparent;
+  border: 1px solid var(--brand-border);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  color: var(--brand-text-secondary);
+  text-decoration: none;
+}
+
+.locale-btn.active {
+  background: var(--brand-primary);
+  color: var(--cotoaga-ai-white);
+  border-color: var(--brand-primary);
+}
+
+.locale-btn:hover:not(.active) {
+  border-color: var(--brand-accent);
+  color: var(--brand-accent);
+}
