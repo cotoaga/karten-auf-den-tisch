@@ -150,10 +150,15 @@ export const de = {
     emailPlaceholder: "Geschäftliche E-Mail",
     companyPlaceholder: "Unternehmen (optional)",
     submitLabel: "⬇︎ Deck schicken (PDF)",
-    successHeading: "Schau in dein Postfach. 🃏",
+    successHeading: "Hier ist dein Deck. 🃏",
     successBody:
-      "Das Print-and-Play-PDF ist unterwegs. Drucken, schneiden, spielen — und gern weitergeben.",
+      "Drucken, schneiden, spielen — und gern weitergeben.",
     fine: "Für Teams ab 10 Personen gibt es eine Workshop-Edition mit Moderationsguide und produzierten Karten — kurt@cotoaga.ai. Für einen Spielabend zu viert reicht das PDF.",
+    consentLabel: "Ich habe die Datenschutzerklärung gelesen und stimme der einmaligen Kontaktaufnahme per E-Mail zu.",
+    privacyHref: "https://cotoaga.net/privacy",
+    downloadLabel: "Deck herunterladen (PDF)",
+    downloadNote: "Direkt-Download — kein Warten, kein Newsletter.",
+    pdfHref: "/deck/karten-auf-den-tisch-de.pdf",
   },
 
   seal: {

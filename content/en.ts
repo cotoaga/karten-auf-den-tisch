@@ -148,10 +148,15 @@ export const en: Locale = {
     emailPlaceholder: "Business email",
     companyPlaceholder: "Company (optional)",
     submitLabel: "⬇︎ Send me the deck (PDF)",
-    successHeading: "Check your inbox. 🃏",
+    successHeading: "Here's your deck. 🃏",
     successBody:
-      "The print-and-play PDF is on its way. Print it, cut it, play it — and feel free to pass it on.",
+      "Print it, cut it, play it — and feel free to pass it on.",
     fine: "For teams of 10+ there's a workshop edition with a facilitator guide and produced cards — kurt@cotoaga.ai. For a game night of four, the PDF is all you need.",
+    consentLabel: "I have read the privacy policy and consent to a single follow-up email.",
+    privacyHref: "https://cotoaga.net/privacy",
+    downloadLabel: "Download the deck (PDF)",
+    downloadNote: "Direct download — no waiting, no newsletter.",
+    pdfHref: "/deck/karten-auf-den-tisch-en.pdf",
   },
 
   seal: {
