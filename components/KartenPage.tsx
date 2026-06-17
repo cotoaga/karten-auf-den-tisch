@@ -75,8 +75,24 @@ export function KartenPage({ t }: KartenPageProps) {
             justifyContent: "center",
             padding: "var(--space-3xl) var(--space-lg)",
             borderBottom: "1px solid var(--brand-border)",
+            position: "relative",
           }}
         >
+          {/* Brand sigil — top-right of hero content, below header, clear of locale toggle */}
+          <img
+            src="/cotoaga_ai_sigil.svg"
+            alt="EU AI Act Literacy · Cognitive Sovereignty · Ethical AI Usage"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+            style={{
+              position: "absolute",
+              top: "var(--space-lg)",
+              right: "var(--space-lg)",
+              width: "clamp(64px, 10vw, 120px)",
+              height: "auto",
+              pointerEvents: "none",
+            }}
+          />
+
           <div style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
             <RevealOnEnter delay={0}>
               <div className="section-kicker">{t.hero.kicker}</div>
