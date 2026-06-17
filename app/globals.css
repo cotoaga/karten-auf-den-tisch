@@ -94,11 +94,15 @@ body {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
   /* height comes from flex:1 in page-shell — no fixed height needed */
+  /* breathing room: kicker lands clear of the top edge on snap + Acts-rail clicks */
+  scroll-padding-top: var(--space-xl);
 }
 
 .chapter-beat {
   scroll-snap-align: start;
   min-height: 100dvh;
+  /* mirrors scroll-padding-top so scrollIntoView lands at the same offset */
+  scroll-margin-top: var(--space-xl);
 }
 
 /* ── Reveal on enter ── */
@@ -117,7 +121,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .chapter-spine {
     scroll-snap-type: none;
+    scroll-padding-top: 0;
     overflow-y: auto;
+  }
+  .chapter-beat {
+    scroll-margin-top: 0;
   }
   .reveal-enter {
     opacity: 1;
