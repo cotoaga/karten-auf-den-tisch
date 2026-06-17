@@ -27,11 +27,11 @@ export async function POST(request: NextRequest) {
   }
 
   const apiKey = process.env.RESEND_API_KEY
-  const from   = process.env.RESEND_FROM ?? 'kurt@cotoaga.ai'
-  const to     = process.env.RESEND_TO   ?? 'kurt@cotoaga.ai'
+  const from   = process.env.RESEND_FROM
+  const to     = process.env.RESEND_TO
 
-  if (!apiKey) {
-    console.error('[lead-gate] RESEND_API_KEY not configured')
+  if (!apiKey || !from || !to) {
+    console.error('[lead-gate] missing env vars: RESEND_API_KEY / RESEND_FROM / RESEND_TO')
     return NextResponse.json({ ok: true, warn: 'mail-not-configured' })
   }
 
