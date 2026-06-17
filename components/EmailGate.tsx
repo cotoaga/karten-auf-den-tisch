@@ -75,7 +75,7 @@ export function EmailGate({ t, locale }: EmailGateProps) {
     setSubmitting(true);
 
     try {
-      await fetch("/api/lead", {
+      await fetch("/api/lead/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, locale, hp }),
