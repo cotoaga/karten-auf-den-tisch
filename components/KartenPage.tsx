@@ -1028,7 +1028,7 @@ export function KartenPage({ t }: KartenPageProps) {
             </RevealOnEnter>
 
             <RevealOnEnter delay={100}>
-              <EmailGate t={t.cta} />
+              <EmailGate t={t.cta} locale={locale} />
             </RevealOnEnter>
 
             <RevealOnEnter delay={160}>
