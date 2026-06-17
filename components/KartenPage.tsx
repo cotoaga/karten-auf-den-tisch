@@ -19,49 +19,48 @@ export function KartenPage({ t }: KartenPageProps) {
   const locale = t.locale;
 
   return (
-    <>
+    <div className="page-shell">
       <ActsRail />
 
-      <div className="chapter-spine">
-
-        {/* ── HEADER ── */}
-        <header
+      {/* ── HEADER — outside scroll container so snap targets are never obscured ── */}
+      <header
+        style={{
+          flexShrink: 0,
+          background: "var(--brand-surface)",
+          borderBottom: "1px solid var(--brand-border)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+          zIndex: 100,
+        }}
+      >
+        <div
           style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 100,
-            background: "var(--brand-surface)",
-            borderBottom: "1px solid var(--brand-border)",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+            maxWidth: 1400,
+            margin: "0 auto",
+            padding: "var(--space-md) var(--space-lg)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          <div
-            style={{
-              maxWidth: 1400,
-              margin: "0 auto",
-              padding: "var(--space-md) var(--space-lg)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div>
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 700,
-                  fontSize: "1.25rem",
-                  letterSpacing: "-0.02em",
-                  color: "var(--brand-text-body)",
-                }}
-              >
-                COTOAGA
-                <span style={{ color: "var(--cotoaga-cyan)" }}>.AI</span>
-              </span>
-            </div>
-            <LocaleSwitch currentLocale={locale} />
+          <div>
+            <span
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: "1.25rem",
+                letterSpacing: "-0.02em",
+                color: "var(--brand-text-body)",
+              }}
+            >
+              COTOAGA
+              <span style={{ color: "var(--cotoaga-cyan)" }}>.AI</span>
+            </span>
           </div>
-        </header>
+          <LocaleSwitch currentLocale={locale} />
+        </div>
+      </header>
+
+      <div className="chapter-spine">
 
         {/* ══════════════════════════════════════
             CHAPTER 1 — SETUP / HERO
@@ -1167,7 +1166,7 @@ export function KartenPage({ t }: KartenPageProps) {
         </footer>
 
       </div>{/* end .chapter-spine */}
-    </>
+    </div>/* end .page-shell */
   );
 }
 

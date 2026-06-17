@@ -67,6 +67,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  height: 100%;
 }
 
 body {
@@ -75,15 +76,24 @@ body {
   color: var(--brand-text-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ── Page shell — flex column so header sits outside the scroll container ── */
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 /* ── Scroll snap — chapter beats only ── */
 .chapter-spine {
-  /* Scroll-snap on major chapter beats */
+  flex: 1;
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 100dvh;
+  /* height comes from flex:1 in page-shell — no fixed height needed */
 }
 
 .chapter-beat {
@@ -107,6 +117,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .chapter-spine {
     scroll-snap-type: none;
+    overflow-y: auto;
   }
   .reveal-enter {
     opacity: 1;
