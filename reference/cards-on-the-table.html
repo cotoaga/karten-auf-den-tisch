@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cards on the Table – COTOAGA.AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1916;
+    --ink-soft:#4a473f;
+    --paper:#f3efe6;
+    --paper-2:#ebe5d8;
+    --line:#cabfa7;
+    --gold:#d99a1c;
+    --gold-deep:#b07d12;
+    --gruen:#2f7d51;
+    --gelb:#e0a92a;
+    --rot:#c0392b;
+    --black-card:#16140f;
+    --display:"Bricolage Grotesque", sans-serif;
+    --body:"Newsreader", Georgia, serif;
+    --maxw:980px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--paper);
+    background-image:
+      linear-gradient(rgba(120,110,85,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,110,85,.05) 1px, transparent 1px);
+    background-size:34px 34px;
+    line-height:1.62;
+    font-size:19px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  section{padding:78px 0;border-bottom:1px solid var(--line)}
+  h1,h2,h3,h4{font-family:var(--display);line-height:1.04;letter-spacing:-.015em}
+  p{margin:0 0 1.05em}
+  a{color:var(--ink);text-underline-offset:3px;text-decoration-thickness:1px}
+  .lead{font-size:1.18em}
+  em{font-style:italic}
+  strong{font-weight:600}
+
+  /* ---- ribbon + header ---- */
+  .ribbon{
+    background:var(--ink);color:var(--paper);
+    font-family:var(--display);font-weight:600;
+    font-size:.78rem;letter-spacing:.02em;text-align:center;
+    padding:9px 16px;
+  }
+  header.site{border-bottom:2px solid var(--ink);background:var(--paper)}
+  .brandrow{display:flex;align-items:baseline;gap:14px;padding:22px 0 14px;flex-wrap:wrap}
+  .brandrow .logo{font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
+  .brandrow .logo b{color:var(--gold-deep)}
+  .brandrow .by{font-size:.85rem;color:var(--ink-soft);font-style:italic}
+  nav.main{display:flex;flex-wrap:wrap;gap:4px 18px;padding:0 0 18px;font-family:var(--display);font-size:.83rem;font-weight:600}
+  nav.main a{text-decoration:none;color:var(--ink-soft)}
+  nav.main a.here{color:var(--ink);border-bottom:2px solid var(--gold)}
+  nav.main a:hover{color:var(--ink)}
+
+  /* ---- hero ---- */
+  .hero{padding-top:64px}
+  .kicker{font-family:var(--display);font-weight:600;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:22px}
+  .hashtag{font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,8vw,5.2rem);line-height:.92;letter-spacing:-.03em}
+  .hashtag .hash{color:var(--gold)}
+  .hero .sub{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.6vw,1.7rem);margin-top:18px;color:var(--ink)}
+  .hero .creed{font-size:1.16em;margin-top:26px;max-width:62ch}
+  .meta-strip{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;font-family:var(--display);font-size:.8rem;font-weight:600}
+  .chip{border:1.5px solid var(--ink);padding:6px 13px;border-radius:2px}
+
+  /* ---- ampel cards motif ---- */
+  .ampel{display:flex;gap:12px;margin:34px 0 4px;flex-wrap:wrap}
+  .pcard{
+    flex:1 1 150px;min-width:140px;border-radius:6px;padding:18px 16px;color:#fff;
+    font-family:var(--display);box-shadow:3px 4px 0 rgba(26,25,22,.18);
+    transform:rotate(var(--r,0deg));transition:transform .25s ease;
+  }
+  .pcard:hover{transform:rotate(0) translateY(-4px)}
+  .pcard .dot{font-size:1.7rem;line-height:1}
+  .pcard .lbl{font-weight:800;font-size:1.05rem;margin-top:8px}
+  .pcard .desc{font-family:var(--body);font-size:.92rem;line-height:1.4;margin-top:6px;opacity:.94}
+  .pc-g{background:var(--gruen);--r:-2.5deg}
+  .pc-y{background:var(--gelb);color:var(--ink);--r:1.5deg}
+  .pc-r{background:var(--rot);--r:-1deg}
+
+  h2.big{font-size:clamp(1.9rem,4.2vw,3rem);margin-bottom:.5em}
+  .section-kicker{font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
+  .prose{max-width:64ch}
+  .prose.wide{max-width:72ch}
+
+  /* ---- three-column blocks ---- */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
+  .three .col h4{font-size:1.18rem;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+  .three .col p{font-size:.96rem;line-height:1.55;color:var(--ink-soft)}
+  .three .col .tag{font-family:var(--display);font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:14px}
+
+  /* ---- the 10th man depth charge ---- */
+  .tenth{background:var(--black-card);color:var(--paper);border-bottom:none}
+  .tenth .section-kicker{color:var(--gelb)}
+  .tenth h2{color:#fff}
+  .tenth .prose{color:#d9d3c4}
+  .tenth strong{color:#fff}
+  .tenth em{color:var(--gelb);font-style:normal;font-weight:500}
+  .flipwrap{display:flex;gap:18px;margin:36px 0 8px;flex-wrap:wrap}
+  .tcard{
+    width:168px;height:232px;border-radius:9px;position:relative;
+    font-family:var(--display);padding:20px 16px;display:flex;flex-direction:column;justify-content:space-between;
+    box-shadow:5px 7px 0 rgba(0,0,0,.4);transition:transform .3s ease;
+  }
+  .tcard:hover{transform:translateY(-6px) rotate(-1deg)}
+  .tcard .corner{font-size:1.4rem;font-weight:800}
+  .tcard .role{font-size:1.15rem;font-weight:800;line-height:1.1}
+  .tcard .note{font-family:var(--body);font-size:.82rem;line-height:1.35;opacity:.85}
+  .tcard.white{background:var(--paper);color:var(--ink);border:1.5px solid #000}
+  .tcard.black{background:#000;color:var(--paper);border:1.5px solid var(--gelb)}
+  .tcard.black .role{color:var(--gelb)}
+  .permission{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,3vw,2rem);color:var(--gelb);margin-top:30px;letter-spacing:-.01em}
+
+  /* ---- joker (the conscience card) ---- */
+  .joker-section{background:radial-gradient(120% 90% at 80% 0%, rgba(217,154,28,.10), transparent 60%), var(--paper)}
+  .jokerwrap{display:flex;gap:40px;align-items:center;margin:38px 0 8px;flex-wrap:wrap}
+  .joker-card{position:relative;width:248px;height:330px;flex:0 0 auto;cursor:pointer}
+  .joker-layer{position:absolute;inset:0;border-radius:13px;padding:24px 22px;font-family:var(--display);display:flex;flex-direction:column;justify-content:space-between;box-shadow:5px 8px 0 rgba(26,25,22,.28)}
+  .golden{background:linear-gradient(160deg,#f0c24a,#d99a1c);color:#2a1f06;border:1.5px solid #8a6410}
+  .golden .gtitle{font-weight:800;font-size:1.35rem;line-height:1.05}
+  .golden .gbody{font-family:var(--body);font-size:.96rem;line-height:1.45;font-style:italic}
+  .deckel{background:#1c1a14;color:var(--paper);border:1.5px solid var(--gold);z-index:2;transition:transform .6s cubic-bezier(.6,-0.2,.3,1.4),opacity .55s ease}
+  .deckel .jword{font-weight:800;font-size:2.4rem;letter-spacing:-.02em;color:var(--gold)}
+  .deckel .jsub{font-family:var(--body);font-size:.9rem;line-height:1.4;opacity:.9}
+  .deckel .jhint{font-family:var(--display);font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);opacity:.8}
+  .joker-card.peeled .deckel{transform:translate(56px,-72px) rotate(9deg);opacity:0;pointer-events:none}
+  .joker-card:not(.peeled):hover .deckel{transform:translate(8px,-8px) rotate(-1.5deg)}
+
+  /* ---- example cases ---- */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+  .case{border:1.5px solid var(--ink);border-radius:5px;padding:22px 20px;background:var(--paper-2);position:relative}
+  .case .num{font-family:var(--display);font-weight:800;font-size:.78rem;letter-spacing:.06em;color:var(--gold-deep);text-transform:uppercase}
+  .case h4{font-size:1.25rem;margin:6px 0 10px}
+  .case p{font-size:.92rem;line-height:1.5;color:var(--ink-soft);margin-bottom:.7em}
+  .case .stars{font-size:.8rem;letter-spacing:2px;color:var(--gold)}
+  .case .q{font-family:var(--body);font-style:italic;font-size:.92rem;color:var(--ink)}
+
+  /* ---- gift / free ---- */
+  .gift .prose{max-width:66ch}
+  .ccline{font-family:var(--display);font-weight:600;font-size:.85rem;letter-spacing:.04em;display:inline-flex;align-items:center;gap:10px;border:1.5px solid var(--ink);padding:8px 14px;border-radius:3px;margin-top:8px}
+
+  /* ---- funnel (quiet) ---- */
+  .funnel{background:var(--paper-2)}
+  .pathrow{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+  .path{border-left:3px solid var(--gold);padding:6px 0 6px 20px}
+  .path h4{font-size:1.15rem;margin-bottom:6px}
+  .path p{font-size:.94rem;color:var(--ink-soft);margin-bottom:.6em}
+  .path a{font-family:var(--display);font-weight:600;font-size:.86rem;text-decoration:none;border-bottom:2px solid var(--gold)}
+
+  /* ---- CTA + email gate ---- */
+  .cta{text-align:center}
+  .btn{
+    display:inline-block;font-family:var(--display);font-weight:700;font-size:1.05rem;
+    background:var(--ink);color:var(--paper);text-decoration:none;
+    padding:16px 34px;border-radius:4px;margin:8px 6px;
+    box-shadow:4px 5px 0 var(--gold);transition:transform .15s,box-shadow .15s;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 7px 0 var(--gold)}
+  .btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);box-shadow:none}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+  .cta .fine{font-size:.92rem;color:var(--ink-soft);margin-top:18px}
+  .gate{max-width:430px;margin:6px auto 0;text-align:left}
+  .gate input{width:100%;font-family:var(--body);font-size:1rem;padding:13px 15px;border:1.5px solid var(--ink);border-radius:4px;background:var(--paper);margin-bottom:11px}
+  .gate input:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(217,154,28,.18)}
+  .gate .btn-submit{width:100%;border:none;cursor:pointer;margin:4px 0 0}
+  .gate .ok{display:none;text-align:center;background:var(--paper-2);border:1.5px solid var(--gruen);border-radius:6px;padding:22px}
+  .gate .ok h4{font-size:1.2rem;margin-bottom:8px}
+  .gate.done form{display:none}
+  .gate.done .ok{display:block}
+
+  /* ---- closing seal ---- */
+  .seal{text-align:center;padding-top:70px}
+  .sigil{width:148px;height:148px;margin:0 auto 26px;display:block}
+  .triangle-text{max-width:60ch;margin:0 auto;font-size:1.05em}
+  .triangle-text .v{font-family:var(--display);font-weight:700}
+  .v-lit{color:var(--gold-deep)}
+  .v-sov{color:var(--gold-deep)}
+  .v-eth{color:var(--rot);border-bottom:2px solid var(--rot)}
+
+  /* ---- footer ---- */
+  footer.site{background:var(--ink);color:var(--paper);padding:34px 0;font-size:.78rem;line-height:1.8;border:none}
+  footer.site .wrap{text-align:center}
+  footer.site a{color:var(--gold)}
+  footer.site .credit{font-family:var(--display);font-weight:600;letter-spacing:.02em}
+
+  /* ---- load animation ---- */
+  .reveal{opacity:0;transform:translateY(16px);animation:rise .7s ease forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.28s}.d4{animation-delay:.42s}.d5{animation-delay:.56s}
+
+  @media(max-width:760px){
+    body{font-size:18px}
+    .three,.cases{grid-template-columns:1fr}
+    .pathrow{grid-template-columns:1fr}
+    section{padding:54px 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon">Let your competitors work harder – Let your AI work smarter – Let us show you how to win!</div>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brandrow">
+      <span class="logo">COTOAGA<b>.AI</b></span>
+      <span class="by">by cotoaga.net</span>
+    </div>
+    <nav class="main">
+      <a href="https://cotoaga.ai/home/">Home 🇺🇸</a>
+      <a href="https://cotoaga.ai/">Start 🇩🇪</a>
+      <a href="https://cotoaga.ai/transmissions/">Transmissions 📣</a>
+      <a href="https://cotoaga.ai/eu-ai-act-2026/">EU AI Act 2026 🤖</a>
+      <a href="https://cotoaga.ai/ki-standortbestimmung-2026/">KI-Standortbestimmung 2026 📐</a>
+      <a href="#" class="here">Cards on the Table 🃏</a>
+      <a href="https://cotoaga.ai/cognitive-devolution/">Cognitive Devolution 😵‍💫</a>
+      <a href="https://cotoaga.ai/kontakt/">Kontakt 🤝</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker reveal d1">The AI ethics game for teams · CC BY-SA 4.0</div>
+    <h1 class="hashtag reveal d2"><span class="hash">#</span>CardsOnTheTable</h1>
+    <p class="sub reveal d3">Help yourselves — when the boss, your colleagues and compliance won't.</p>
+    <p class="creed reveal d4">Your team faces AI edge cases every week. Can the intern dump the client strategy into ChatGPT? Is a chatbot that introduces itself as "Emma" transparent, or a quiet deception? These calls usually happen in passing, undocumented — and in the end the loudest voice in the room wins. This is a tool that puts the decision on the table, before someone else makes it for you.</p>
+    <div class="meta-strip reveal d5">
+      <span class="chip">3–6 players</span>
+      <span class="chip">45–90 minutes</span>
+      <span class="chip">12 dilemma cards</span>
+      <span class="chip">Free · Open Source</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap">
+    <div class="section-kicker">Why a game at all</div>
+    <h2 class="big">Most AI edge cases are never decided. They just happen.</h2>
+    <div class="prose wide">
+      <p>Nobody calls a meeting to clarify whether internal strategy papers may be pasted into a public AI tool. It just happens. Nobody formally votes on whether the recruiting AI is fair — until a journalist crunches the numbers. The edge cases stay invisible until they get expensive.</p>
+      <p>The problem isn't that teams make bad decisions. The problem is that they don't notice they're deciding at all. And when something does get discussed, the best argument rarely wins — the highest rank or the loudest conviction does.</p>
+      <p>An honest workshop sorts before it wrenches. This game is the sorting — structured, free of the boss effect, with dissent built in. Three cards, one honest discussion, and the permission to disagree.</p>
+    </div>
+
+    <div class="ampel">
+      <div class="pcard pc-g">
+        <div class="dot">🟢</div>
+        <div class="lbl">Green</div>
+        <div class="desc">"This is fine, we can do it."</div>
+      </div>
+      <div class="pcard pc-y">
+        <div class="dot">🟡</div>
+        <div class="lbl">Yellow</div>
+        <div class="desc">"Concerns — needs conditions first."</div>
+      </div>
+      <div class="pcard pc-r">
+        <div class="dot">🔴</div>
+        <div class="lbl">Red</div>
+        <div class="desc">"No way. Too risky, too problematic."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <div class="section-kicker">How it runs · Act 1</div>
+    <h2 class="big">Read it out. Vote face down. Flip together.</h2>
+    <div class="prose wide">
+      <p>One person reads the case aloud. Then <strong>everyone picks a card face down</strong> — green, yellow or red. No showing, no discussing first, think on your own. On "1, 2, 3" everyone flips at once. No feeling-out, no glancing at the boss.</p>
+      <p>All the same? Consensus, next case. Different? <em>Now it gets interesting.</em> Why do you see it differently? What information is missing? What would turn yellow into green? Ten minutes, no more.</p>
+      <p>And the most important line in the whole rulebook: <strong>consensus is not mandatory.</strong> Sometimes the most honest answer is "we disagree, because X." Then you document the dissent and move on. Each player also holds one private card that never has to hit the table — more on that in a moment.</p>
+      <p>Six cases like this. Then comes the break.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE 10TH MAN — depth charge -->
+<section class="tenth">
+  <div class="wrap">
+    <div class="section-kicker">How it runs · Act 2 · From case 7</div>
+    <h2 class="big">The 10th Man</h2>
+    <div class="prose">
+      <p><strong>1973, the Yom Kippur War.</strong> Nine analysts of Israeli intelligence agreed: no attack to be expected. All nine were wrong. Catastrophe followed.</p>
+      <p>Afterwards a new rule applied: <em>when nine agree, the tenth must prove the opposite</em> — even if he personally doesn't believe it. Not because the tenth is smarter. Because consensus becomes dangerous on complex decisions. Blind spots grow, not shrink. Critical voices disappear.</p>
+      <p>From case 7 on, everyone draws an extra card face down. Five white, one black.</p>
+    </div>
+
+    <div class="flipwrap">
+      <div class="tcard white">
+        <span class="corner">⚪</span>
+        <div>
+          <div class="role">Not you this time.</div>
+          <div class="note">But one of your colleagues is. You keep discussing normally.</div>
+        </div>
+      </div>
+      <div class="tcard black">
+        <span class="corner">⚫</span>
+        <div>
+          <div class="role">YOU are the 10th Man.</div>
+          <div class="note">Find the strongest argument against the majority. No matter what you personally think. Your job starts now.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>The 10th Man argues against the group. Radically — not "a little skeptical." He looks for the best counter-argument, not the most comfortable one. It's a role, not a statement — and that's exactly why it works. Nobody has to justify why they're being difficult. The black card is the mandate.</p>
+    </div>
+    <p class="permission">"I've got the black card." = Permission to disagree.</p>
+    <div class="prose" style="margin-top:24px">
+      <p>That's the whole point of the game: if <strong>you</strong> don't find the weaknesses, someone else will — in the audit, in the press, in court. The 10th Man protects the group from itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOKER — the conscience card -->
+<section class="joker-section">
+  <div class="wrap">
+    <div class="section-kicker">The card nobody hands back</div>
+    <h2 class="big">The Joker</h2>
+    <div class="jokerwrap">
+      <div class="joker-card" id="joker" onclick="this.classList.toggle('peeled')">
+        <div class="joker-layer golden">
+          <div class="gtitle">The Golden Rule</div>
+          <div class="gbody">Switch perspective. Imagine: <strong>YOU</strong> are the affected person. How would YOU want to be treated? That's exactly how you should decide.</div>
+        </div>
+        <div class="joker-layer deckel">
+          <div>
+            <div class="jword">Joker</div>
+            <div class="jsub">Open this card when YOU have a bad feeling. It stays with you. Use it as often as you like. Don't reveal what's inside.</div>
+          </div>
+          <div class="jhint">↑ peel the lid</div>
+        </div>
+      </div>
+      <div class="prose" style="flex:1 1 300px">
+        <p>Every player has one. It doesn't enter the discussion, it isn't voted on, it never has to hit the table. When your gut screams — no matter what the group is "rationally" deciding — you peel back the lid and read what's underneath.</p>
+        <p>Underneath there's no rule, no statute, no compliance directive. Underneath there's a <em>shift in perspective</em>. And that's the sharpest ethical point in the whole deck.</p>
+      </div>
+    </div>
+    <div class="prose wide" style="margin-top:18px">
+      <p>The other cards go back in the box after every round. The Joker doesn't. It stays in your hand for the whole game — opened or not. Intuition has reasons the mind doesn't know yet; the Joker gives it a voice, without you having to justify it.</p>
+      <p>And this is where the circle closes back to the workbench: almost every one of the twelve cases hides an <strong>affected person</strong> who easily gets lost in the debate — the pre-screened applicant, the employee on the "performance-risk list," the rejected loan candidate, the patient who trusts the health app like a doctor. The 10th Man finds the blind spot in the <em>thinking</em>. The Joker finds the human on the other end of the decision. Two private cards, two guardians: one for the head, one for the conscience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLE CASES -->
+<section>
+  <div class="wrap">
+    <div class="section-kicker">Three of twelve cases</div>
+    <h2 class="big">No training examples. Real edge cases.</h2>
+    <p class="prose">The twelve cases escalate from "relatable" to "systemically complex." Here are three, so you can see the range — the other nine stay in the deck, or the whole point is spoiled.</p>
+    <div class="cases">
+      <div class="case">
+        <div class="num">Case 1 · Entry level</div>
+        <div class="stars">⭐</div>
+        <h4>The Intern</h4>
+        <p>An intern dumps the briefing notes from the client meeting into ChatGPT to draft social posts. No personal data — but product strategy and launch timing, not yet public.</p>
+        <p class="q">Is this fine, or do you need to step in?</p>
+      </div>
+      <div class="case">
+        <div class="num">Case 7 · The pivot</div>
+        <div class="stars">⭐⭐⭐⭐</div>
+        <h4>The Predictive-Firing AI</h4>
+        <p>The US parent company predicts who will "underperform" in six months. US HR: "It's just a dashboard." Reality: managers launch preemptive performance plans. Now the system is coming to your EU branch.</p>
+        <p class="q">May you deploy it? Do you want to?</p>
+      </div>
+      <div class="case">
+        <div class="num">Case 12 · Meta &amp; recursive</div>
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <h4>The AI-Governance AI</h4>
+        <p>A vendor offers a meta-AI that monitors all your other AI systems. The board loves it. Legal asks: "Who monitors the governance AI?" An engineer says: "This is Skynet territory."</p>
+        <p class="q">Brilliant solution — or a new problem?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE GIFT -->
+<section class="gift">
+  <div class="wrap">
+    <div class="section-kicker">Why it's free</div>
+    <h2 class="big">Because that's exactly the point.</h2>
+    <div class="prose">
+      <p>My business is repairing transformations — not selling dependency. Consultancies don't give something like this away; they sell FTEs, not solutions. I'd rather make myself redundant.</p>
+      <p>This game is the most honest form of that: your team learns to see AI edge cases itself, discuss them itself, and tolerate disagreement itself — without me in the room. If it works, you won't need me for these cases anymore. Good.</p>
+      <p>So: download it, print it, play it. Change what doesn't fit. Add your own cases. Pass it on. That's not merely allowed — it's the whole idea.</p>
+    </div>
+    <div class="ccline">⚖️ CC BY-SA 4.0 · Built with AI, to orchestrate AI better</div>
+  </div>
+</section>
+
+<!-- QUIET FUNNEL -->
+<section class="funnel">
+  <div class="wrap">
+    <div class="section-kicker">When the table isn't enough</div>
+    <h2 class="big">Not every case needs an appointment at the workshop.</h2>
+    <p class="prose wide">You decide most edge cases yourselves — at the table, as a team, with three cards and a 10th Man. Some you don't. When the game reveals that you disagree on your own real systems case after case, or that nobody actually knows what's in operation — then something's on the workbench that needs more than a game night.</p>
+    <div class="pathrow">
+      <div class="path">
+        <h4>Where does your vehicle stand?</h4>
+        <p>Twelve questions, five minutes, an instant reading — how far along your AI diagnosis is, and the posture in which AI gets talked about in your organization.</p>
+        <a href="https://cotoaga.ai/ki-standortbestimmung-2026/">KI-Standort-Bestimmung →</a>
+      </div>
+      <div class="path">
+        <h4>Hood up, before the inspector arrives.</h4>
+        <p>The AI workshop appointment: half a day, written findings, fixed price. What runs, what's stuck, what's due anyway — before August 2, 2026.</p>
+        <a href="https://cotoaga.ai/eu-ai-act-2026/">EU AI Act 2026 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD CTA -->
+<section class="cta">
+  <div class="wrap">
+    <div class="section-kicker" style="text-align:center">Cards on the table — in real life too</div>
+    <h2 class="big">Get the deck.</h2>
+    <p class="prose" style="margin:0 auto 26px">Print-and-play: twelve cases, voting cards, Joker, and the 10th-Man expansion. Rules included. A small quid pro quo — you leave a business email, I send the PDF. No newsletter, no sales funnel, one download.</p>
+    <div class="gate" id="gate">
+      <form onsubmit="event.preventDefault(); document.getElementById('gate').classList.add('done');">
+        <input type="email" placeholder="Business email" required>
+        <input type="text" placeholder="Company (optional)">
+        <button type="submit" class="btn btn-submit">⬇︎ Send me the deck (PDF)</button>
+      </form>
+      <div class="ok">
+        <h4>Check your inbox. 🃏</h4>
+        <p style="margin:0">The print-and-play PDF is on its way. Print it, cut it, play it — and feel free to pass it on.</p>
+      </div>
+    </div>
+    <p class="fine">For teams of 10+ there's a workshop edition with a facilitator guide and produced cards — <a href="mailto:kurt@cotoaga.ai">kurt@cotoaga.ai</a>. For a game night of four, the PDF is all you need.</p>
+  </div>
+</section>
+
+<!-- CLOSING SEAL -->
+<section class="seal">
+  <div class="wrap">
+    <svg class="sigil" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="KHAOS Sigil">
+      <g>
+        <g stroke="#d99a1c" stroke-width="4" stroke-linecap="round">
+          <line x1="100" y1="6" x2="100" y2="30"/>
+          <line x1="100" y1="170" x2="100" y2="194"/>
+          <line x1="6" y1="100" x2="30" y2="100"/>
+          <line x1="170" y1="100" x2="194" y2="100"/>
+          <line x1="33" y1="33" x2="50" y2="50"/>
+          <line x1="150" y1="150" x2="167" y2="167"/>
+          <line x1="167" y1="33" x2="150" y2="50"/>
+          <line x1="50" y1="150" x2="33" y2="167"/>
+        </g>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#d99a1c" stroke-width="3"/>
+        <circle cx="100" cy="100" r="70" fill="#d99a1c" opacity="0.08"/>
+        <polygon points="100,52 142,128 58,128" fill="none" stroke="#b07d12" stroke-width="2.5"/>
+        <circle cx="100" cy="52" r="6" fill="#b07d12"/>
+        <circle cx="142" cy="128" r="6" fill="#b07d12"/>
+        <circle cx="58" cy="128" r="6" fill="#c0392b"/>
+      </g>
+    </svg>
+    <p class="triangle-text">Three points. One triangle. Not a spectrum, not an either/or — three connected pillars that hold each other up. <span class="v v-lit">EU AI Act Literacy</span> knows what the regulation demands. <span class="v v-sov">Cognitive Sovereignty</span> knows what the organization needs from it. <span class="v v-eth">Ethical AI Usage</span> knows where the line is — and <em>Cards on the Table</em> is how a team finds that line: together, at the table, before anyone else does.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <p class="credit">1982→2026 · 60 Years · 20 Countries · 7 Languages · C64→AI · 100% Skin-in-the-Game</p>
+    <p>COTOAGA.AI — a Human + AI Collaboration · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+    <p>Portfolio: <a href="https://cotoaga.net">cotoaga.net</a> · <a href="https://cotoaga.ai">cotoaga.ai</a> · <a href="https://cotoaga.net/imprint">Imprint</a> · <a href="https://cotoaga.net/privacy">Privacy</a> · <a href="https://cotoaga.net/terms">Terms</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
