@@ -37,11 +37,11 @@ export const de = {
 
   whyGame: {
     kicker: "Warum überhaupt ein Spiel",
-    /* ⚠ CONTENT GAP — German copy for this section not in source files.
-     * Kurt supplies. Do not machine-translate. */
-    heading: "⚠ Inhalt fehlt — Kurt liefert deutschen Text",
+    heading: "Die meisten KI-Grenzfälle werden nie entschieden. Sie passieren einfach.",
     body: [
-      "⚠ Diese Sektion hat noch keinen deutschen Text in den Quelldateien. Bitte liefere die deutsche Version des «Warum ein Spiel?»-Abschnitts nach (englisches Original in der EN-Vorlage: «Most AI edge cases are never decided. They just happen.»).",
+      "Niemand beruft ein Meeting ein, um zu klären, ob interne Strategiepapiere in ein öffentliches KI-Tool kopiert werden dürfen. Es passiert einfach. Niemand stimmt formal darüber ab, ob die Recruiting-KI fair ist — bis ein Journalist die Zahlen nachrechnet. Die Grenzfälle bleiben unsichtbar, bis sie teuer werden.",
+      "Das Problem ist nicht, dass Teams schlechte Entscheidungen treffen. Das Problem ist, dass sie gar nicht merken, dass sie überhaupt entscheiden. Und wenn doch einmal diskutiert wird, gewinnt selten das beste Argument — sondern der höchste Rang oder die lauteste Überzeugung.",
+      "Ein ehrlicher Workshop sortiert, bevor er schraubt. Dieses Spiel ist das Sortieren — strukturiert, frei vom Chef-Effekt, mit eingebautem Widerspruch. Drei Karten, eine ehrliche Diskussion und die Erlaubnis, anderer Meinung zu sein.",
     ],
     ampelGreen: { label: "Grün", desc: "\"Das geht, wir können es tun.\"" },
     ampelYellow: { label: "Gelb", desc: "\"Bedenken — braucht erst Bedingungen.\"" },
