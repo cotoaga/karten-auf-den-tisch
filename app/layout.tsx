@@ -34,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="de"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
+      <head><script defer src="https://khaos-pluto.cotoaga.ai/hastings.js"></script></head>
       <body>{children}</body>
     </html>
   );
