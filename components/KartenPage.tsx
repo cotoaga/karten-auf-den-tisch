@@ -43,18 +43,20 @@ export function KartenPage({ t }: KartenPageProps) {
           }}
         >
           <div>
-            <span
+            <a
+              href="https://cotoaga.ai"
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 700,
                 fontSize: "1.25rem",
                 letterSpacing: "-0.02em",
                 color: "var(--brand-text-body)",
+                textDecoration: "none",
               }}
             >
               COTOAGA
               <span style={{ color: "var(--cotoaga-cyan)" }}>.AI</span>
-            </span>
+            </a>
           </div>
           <LocaleSwitch currentLocale={locale} />
         </div>
