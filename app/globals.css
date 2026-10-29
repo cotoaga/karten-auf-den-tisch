@@ -105,6 +105,11 @@ body {
   scroll-margin-top: var(--space-xl);
 }
 
+/* footer is a snap stop too — otherwise mandatory snap never lets it into view */
+.chapter-spine > footer {
+  scroll-snap-align: end;
+}
+
 /* ── Reveal on enter ── */
 .reveal-enter {
   opacity: 0;
