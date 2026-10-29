@@ -1178,6 +1178,13 @@ export function KartenPage({ t }: KartenPageProps) {
                 {t.footer.links.terms}
               </a>
             </p>
+            {locale === "de" && (
+              <p style={{ fontFamily: "var(--font-primary)", fontSize: "0.8125rem", opacity: 0.5, marginTop: "var(--space-sm)" }}>
+                <a href="https://cotoaga.ai/karten-auf-den-tisch/" style={{ color: "var(--cotoaga-ai-gold)" }}>
+                  Archiv: der erste Prototyp →
+                </a>
+              </p>
+            )}
           </div>
         </footer>
 
